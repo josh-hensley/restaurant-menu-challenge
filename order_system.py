@@ -27,48 +27,21 @@ def place_order(menu):
     # Launch the store and present a greeting to the customer
     print("Welcome to the Generic Take Out Restaurant.")
 
-    # TODO: Create a continuous while loop so customers can order multiple items
-
-        # TODO: Ask the customer what they want to order
-
-
-        # Create a variable for the menu item number
+    while True:
+        customer_order = input("What would you like to order? ")
         i = 1
-
-        # Print the menu header
         print_menu_heading()
-
-        # TODO: Loop through the menu dictionary
-        # TODO: Extract the food category and the options for each category
-
-            # TODO: Loop through the options for each food category
-            # TODO: Extract the meal and the price for each option
-
-                # Print the menu item number, food category, meal, and price
-                # TODO: Only if you used different variable names
-                # TODO: Update the variable names in the following function
+        for food_category, options in menu.items():
+            for meal, price in options.items():
                 print_menu_line(i, food_category, meal, price)
-
-                # Update the menu selection number
                 i += 1
-
-        # TODO: Ask customer to input menu item number
-
-
-        # TODO: Update the order list using the update_order function
-        # TODO: Send the order list, menu selection, and menu items as arguments
-
-
-        # TODO: Ask the customer if they would like to order anything else
-        # TODO: Let the customer know if they should type 'n' or 'N' to quit
-
-
-        # TODO: Write a conditional statement that checks the user's input
-        # TODO: The conditional statement should check for 'n' or 'N'
-
-            # TODO: Write a print statement that thanks the customer for their order
-
-
+        menu_selection = input("Input item number. ")
+        update_order(order, menu_selection, menu_items)
+        order_again = input("Would you like to order anything else? (y/n) ")
+        if order_again.lower() == "n":
+            print("Thank you for your order!")
+            break
+        prices_list = [price for ]
             # TODO: Use list comprehension to create a list called prices_list,
             # TODO: which contains the total prices for each item in the order list:
             # TODO: The total price for each item should multiply the price by quantity
@@ -100,13 +73,10 @@ def update_order(order, menu_selection, menu_items):
     order (list): A list of dictionaries containing the menu item name, price,
                     and quantity ordered (updated as needed).
     """
-    # TODO: Check if the customer typed a number
-
-        # TODO: Convert the menu selection to an integer
-
-
-        # TODO: Check if the menu selection is in the menu items keys
-
+    if menu_selection.isDigit():
+        menu_selection = int(menu_selection)
+        if menu_selection in menu_items.keys():
+            item_name = menu_items[menu_selection][]
             # TODO: Store the item name as a variable
 
 
