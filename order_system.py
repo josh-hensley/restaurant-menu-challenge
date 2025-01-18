@@ -73,35 +73,24 @@ def update_order(order, menu_selection, menu_items):
     order (list): A list of dictionaries containing the menu item name, price,
                     and quantity ordered (updated as needed).
     """
-    if menu_selection.isDigit():
+    if menu_selection.isdigit():
         menu_selection = int(menu_selection)
         if menu_selection in menu_items.keys():
-            item_name = menu_items[menu_selection][]
-            # TODO: Store the item name as a variable
-
-
-            # TODO: Ask the customer for the quantity of the menu item
-            # TODO: Use the item name variable in the question
-
-
-            # TODO: Check if the quantity is a number, default to 1 if not
-
-
-            # TODO: Add a dictionary to the order list 
-            # TODO: The dictionary should include the item name, price, and quantity
-            # TODO: Use the following names for the dictionary keys:
-            # TODO: "Item name", "Price", "Quantity"
-
-        # TODO: When the user's input isn't valid, 
-        # TODO: tell the customer that their input isn't valid
-
-    # TODO: When the menu selection wasn't valid:
-    # TODO: Print the menu selection and 
-    # TODO: Tell the customer they didn't select a menu option
-
-
-    # TODO: Return the updated order
-
+            item = menu_items[menu_selection]
+            quantity = input(f'How many {item}?')
+            if quantity.isdigit() == False:
+                quantity = 1
+            else:
+                quantity = int(quantity)
+            order_dict = {
+                "Item name":menu_items[menu_selection]["Item name"],
+                "Price":menu_items[menu_selection]["Price"],
+                "Quantity": quantity
+            }
+            order.append(order_dict)
+        else:
+            print("Menu selection not valid.")
+        return order
 
 def print_itemized_receipt(receipt):
     """
