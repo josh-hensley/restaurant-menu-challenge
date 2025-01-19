@@ -26,13 +26,13 @@ def place_order(menu):
     print("Welcome to the Generic Take Out Restaurant.")
     ordering = True
     while ordering:
+        print("What would you like to order? ")
         i = 1
         print_menu_heading()
         for food_category, options in menu.items():
             for meal, price in options.items():
                 print_menu_line(i, food_category, meal, price)
                 i += 1
-        print("What would you like to order?")
         menu_selection = input("Type menu number: ")
         order = update_order(order, menu_selection, menu_items)
         order_again = input("Would you like to keep ordering? (N) to quit: ")
@@ -62,7 +62,7 @@ def update_order(order, menu_selection, menu_items):
         menu_selection = int(menu_selection)
         if menu_selection in menu_items.keys():
             item = menu_items[menu_selection]
-            quantity = input(f'What quantity of {item["Item name"]} would you like? (This will default to 1 if number is not entered)')
+            quantity = input(f'What quantity of {item["Item name"]} would you like? \n(This will default to 1 if number is not entered)\n')
             if quantity.isdigit() == False:
                 quantity = 1
             else:
