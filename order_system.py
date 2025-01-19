@@ -20,43 +20,28 @@ def place_order(menu):
     # Set up order list. Order list will store a list of dictionaries for
     # menu item name, item price, and quantity ordered
     order = []
-
     # Get the menu items mapped to the menu numbers
     menu_items = get_menu_items_dict(menu)
-
     # Launch the store and present a greeting to the customer
     print("Welcome to the Generic Take Out Restaurant.")
-
-    while True:
-        customer_order = input("What would you like to order? ")
+    ordering = True
+    while ordering:
         i = 1
         print_menu_heading()
         for food_category, options in menu.items():
             for meal, price in options.items():
                 print_menu_line(i, food_category, meal, price)
                 i += 1
-        menu_selection = input("Input item number. ")
-        update_order(order, menu_selection, menu_items)
-        order_again = input("Would you like to order anything else? (y/n) ")
+        print("What would you like to order?")
+        menu_selection = input("Type menu number: ")
+        order = update_order(order, menu_selection, menu_items)
+        order_again = input("Would you like to keep ordering? (N) to quit: ")
         if order_again.lower() == "n":
-            print("Thank you for your order!")
-            break
-        prices_list = [price for ]
-            # TODO: Use list comprehension to create a list called prices_list,
-            # TODO: which contains the total prices for each item in the order list:
-            # TODO: The total price for each item should multiply the price by quantity
-
-
-            # TODO: Create an order_total from the prices list using sum()
-            # TODO: Round the prices to 2 decimal places.
-
-
-            # TODO: Exit the ordering loop
-            # TODO: Either use a break statement or set the condition to False
-
-
-    # TODO: Return the order list and the order total
-
+            print("Thank you for your order.")
+            prices_list = [float(item["Price"]) * int(item["Quantity"]) for item in order]
+            ordering = False
+    order_total = round(float(sum(prices_list)), 2)
+    return order, order_total
 
 def update_order(order, menu_selection, menu_items):
     """
@@ -77,20 +62,21 @@ def update_order(order, menu_selection, menu_items):
         menu_selection = int(menu_selection)
         if menu_selection in menu_items.keys():
             item = menu_items[menu_selection]
-            quantity = input(f'How many {item}?')
+            quantity = input(f'What quantity of {item["Item name"]} would you like? (This will default to 1 if number is not entered)')
             if quantity.isdigit() == False:
                 quantity = 1
             else:
                 quantity = int(quantity)
-            order_dict = {
+            order.append({
                 "Item name":menu_items[menu_selection]["Item name"],
                 "Price":menu_items[menu_selection]["Price"],
                 "Quantity": quantity
-            }
-            order.append(order_dict)
+            })
         else:
             print("Menu selection not valid.")
-        return order
+    else:
+        print(f'{menu_selection} was not a menu option.')
+    return order
 
 def print_itemized_receipt(receipt):
     """
@@ -100,17 +86,11 @@ def print_itemized_receipt(receipt):
     receipt (list): A list of dictionaries containing the menu item name, price,
                     and quantity ordered.
     """
-    # Uncomment the following line if you need to check the structure of the receipt
-    #print(receipt)
-
-    # TODO: Loop through the items in the customer's receipt
-
-        # TODO Store the dictionary items as variables
-
-
-        # TODO: Print the receipt line using the print_receipt_line function
-        # TODO: Send the item name, price, and quantity as separate arguments
-
+    for item in receipt:
+        name = item["Item name"]
+        price = item["Price"]
+        quantity = item["Quantity"]
+        print_receipt_line(name, price, quantity)
 
 ##################################################
 #  STARTER CODE
